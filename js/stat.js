@@ -16,7 +16,8 @@ var PLAYERS_Y = 260;
 var COLORS = {
   white: '#fff',
   black: '#000',
-  black07: 'rgba(0, 0, 0, 0.7)'
+  black07: 'rgba(0, 0, 0, 0.7)',
+  red: 'rgba(255, 0, 0, 1)'
 };
 
 var renderCloud = function (ctx, x, y, color) {
@@ -28,26 +29,19 @@ var getMaxElement = function (numArray) {
   return Math.max.apply(null, numArray);
 };
 
-var renderPlayerStat = function (index, ctx, names, times) {
-  var maxTime = getMaxElement(times);
+var renderPlayerStat = function (index, ctx, playerName, playerTime, maxTime) {
   var getRandomInt = Math.round(Math.random() * 100);
-  var barVariableHeight = BAR_HEIGHT - ((BAR_HEIGHT * times[index]) / maxTime);
+  var barVariableHeight = BAR_HEIGHT - ((BAR_HEIGHT * playerTime) / maxTime);
   var barVariableY = BAR_Y + barVariableHeight;
   ctx.fillStyle = COLORS.black;
-  ctx.fillText(Math.round(times[index]), CLOUD_TEXT_X + (BAR_WIDTH + BAR_GAP) * index, TIME_Y + barVariableHeight);
-  ctx.fillText(names[index], CLOUD_TEXT_X + (BAR_WIDTH + BAR_GAP) * index, PLAYERS_Y);
-  if (names[index] === 'Вы') {
-    ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+  ctx.fillText(Math.round(playerTime), CLOUD_TEXT_X + (BAR_WIDTH + BAR_GAP) * index, TIME_Y + barVariableHeight);
+  ctx.fillText(playerName, CLOUD_TEXT_X + (BAR_WIDTH + BAR_GAP) * index, PLAYERS_Y);
+  if (playerName === 'Вы') {
+    ctx.fillStyle = COLORS.red;
   } else {
     ctx.fillStyle = 'hsl(240, ' + getRandomInt + '%, 50%)';
   }
-  ctx.fillRect(BAR_X + (BAR_WIDTH + BAR_GAP) * index, barVariableY, BAR_WIDTH, (BAR_HEIGHT * times[index]) / maxTime);
-};
-
-var renderHistogram = function (names) {
-  for (var i = 0; i < names.length; i++) {
-    renderPlayerStat(i);
-  }
+  ctx.fillRect(BAR_X + (BAR_WIDTH + BAR_GAP) * index, barVariableY, BAR_WIDTH, (BAR_HEIGHT * playerTime) / maxTime);
 };
 
 window.renderStatistics = function (ctx, names, times) {
@@ -60,5 +54,10 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.fillText('Ура вы победили!', CLOUD_X + GAP, 35);
   ctx.fillText('Список результатов:', CLOUD_X + GAP, 55);
 
-  renderHistogram(ctx, names, times);
+  var maxTime = getMaxElement(times);
+
+  names.forEach(function (currentValue, index) {
+    renderPlayerStat(index, ctx, currentValue, times[index], maxTime);
+  });
 };
+
