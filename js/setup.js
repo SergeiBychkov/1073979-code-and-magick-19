@@ -3,7 +3,7 @@ var WIZARDS_COUNTER = 4;
 
 var firstNames = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var lastNames = [' да Марья', ' Верон', ' Мирабелла', ' Вальц', ' Онопко', ' Топольницкая', ' Нионго', ' Ирвинг'];
-var clothesСolor = ['rgb (101, 137, 164)', 'rgb (241, 43, 107)', 'rgb (146, 100, 161)', 'rgb (56, 159, 117)', 'rgb (215, 210, 55)', 'rgb (0, 0, 0)'];
+var clothesСolor = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var colors = ['black', 'red', 'blue', 'yellow', 'green'];
 var wizards = [];
 
@@ -29,15 +29,21 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template')
 
 var similarListElement = document.querySelector('.setup-similar-list');
 
-for (var i = 0; i < WIZARDS_COUNTER; i++) {
+var renderWizard = function () {
   var wizardElement = similarWizardTemplate.cloneNode(true);
   makingWizard();
 
   wizardElement.querySelector('.setup-similar-label').textContent = wizards[i].name;
   wizardElement.querySelector('.wizard-coat').style.fill = wizards[i].coatColor;
   wizardElement.querySelector('.wizard-eyes').style.fill = wizards[i].eyesColor;
+  return wizardElement;
+};
 
-  similarListElement.appendChild(wizardElement);
+var fragment = document.createDocumentFragment();
+for (var i = 0; i < WIZARDS_COUNTER; i++) {
+  fragment.appendChild(renderWizard(wizards[i]));
 }
+
+similarListElement.appendChild(fragment);
 
 document.querySelector('.setup-similar').classList.remove('hidden');
