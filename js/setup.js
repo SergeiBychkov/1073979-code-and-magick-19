@@ -21,6 +21,10 @@ var makingWizard = function () {
   });
 };
 
+for (var index = 0; index < WIZARDS_COUNTER; index++) {
+  makingWizard();
+}
+
 document.querySelector('.setup').classList.remove('hidden');
 
 var similarWizardTemplate = document.querySelector('#similar-wizard-template')
@@ -29,13 +33,12 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template')
 
 var similarListElement = document.querySelector('.setup-similar-list');
 
-var renderWizard = function () {
+var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
-  makingWizard();
 
-  wizardElement.querySelector('.setup-similar-label').textContent = wizards[i].name;
-  wizardElement.querySelector('.wizard-coat').style.fill = wizards[i].coatColor;
-  wizardElement.querySelector('.wizard-eyes').style.fill = wizards[i].eyesColor;
+  wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
+  wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
+  wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
   return wizardElement;
 };
 
