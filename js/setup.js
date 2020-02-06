@@ -116,7 +116,4 @@ wizardEyes.addEventListener('click', function () {
 fireball.addEventListener('click', function () {
   fireball.style.backgroundColor = fireballColors[getRandomIntInclusive(0, fireballColors.length)];
   fireballInput.value = fireballColors[getRandomIntInclusive(0, fireballColors.length)];
-  console.log(fireballInput.value = fireballColors[getRandomIntInclusive(0, fireballColors.length)]);
 });
-
-console.log(fireballInput);
