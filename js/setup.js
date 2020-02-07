@@ -15,7 +15,6 @@ var wizardName = setup.querySelector('.setup-user-name');
 var wizardCoat = setup.querySelector('.wizard-coat');
 var wizardEyes = setup.querySelector('.wizard-eyes');
 var fireball = setup.querySelector('.setup-fireball-wrap');
-var fireballInput = document.getElementsByName('coat-color');
 var fireballColors = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
 var getRandomIntInclusive = function (min, max) {
@@ -99,6 +98,10 @@ document.addEventListener('keydown', function (evt) {
   }
 });
 
+wizardName.addEventListener('focus', function () {
+  document.removeEventListener('keydown', onPopupEscPress);
+});
+
 setupClose.addEventListener('keydown', function (evt) {
   if (evt.key === ENTER_KEY) {
     closePopup();
@@ -106,14 +109,19 @@ setupClose.addEventListener('keydown', function (evt) {
 });
 
 wizardCoat.addEventListener('click', function () {
+  var getColor = getRandomIntInclusive(0, clothesСolor.length);
   wizardCoat.style.fill = clothesСolor[getRandomIntInclusive(0, clothesСolor.length)];
+  setup.querySelector('[name=coat-color]').value = clothesСolor[getColor];
 });
 
 wizardEyes.addEventListener('click', function () {
+  var getColor = getRandomIntInclusive(0, colors.length);
   wizardEyes.style.fill = colors[getRandomIntInclusive(0, colors.length)];
+  setup.querySelector('[name=eyes-color').value = colors[getColor];
 });
 
 fireball.addEventListener('click', function () {
-  fireball.style.backgroundColor = fireballColors[getRandomIntInclusive(0, fireballColors.length)];
-  fireballInput.value = fireballColors[getRandomIntInclusive(0, fireballColors.length)];
+  var getColor = getRandomIntInclusive(0, fireballColors.length);
+  fireball.style.backgroundColor = fireballColors[getColor];
+  fireball.querySelector('[name=fireball-color]').value = fireballColors[getColor];
 });
