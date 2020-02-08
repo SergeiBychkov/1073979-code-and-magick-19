@@ -73,10 +73,14 @@ var closePopup = function () {
 };
 
 var onPopupEscPress = function (evt) {
-  if (evt.key === ESC_KEY) {
+  if (wizardName !== document.activeElement && evt.key === ESC_KEY) {
     closePopup();
   }
 };
+
+if (!setup.classList.contains('hidden')) {
+  document.addEventListener('keydown', onPopupEscPress);
+}
 
 setupOpen.addEventListener('click', function () {
   openPopup();
@@ -92,16 +96,6 @@ setupOpen.addEventListener('keydown', function (evt) {
   }
 });
 
-document.addEventListener('keydown', function (evt) {
-  if (wizardName !== document.activeElement && evt.key === ESC_KEY) {
-    closePopup();
-  }
-});
-
-wizardName.addEventListener('focus', function () {
-  document.removeEventListener('keydown', onPopupEscPress);
-});
-
 setupClose.addEventListener('keydown', function (evt) {
   if (evt.key === ENTER_KEY) {
     closePopup();
@@ -109,19 +103,19 @@ setupClose.addEventListener('keydown', function (evt) {
 });
 
 wizardCoat.addEventListener('click', function () {
-  var getColor = getRandomIntInclusive(0, clothesСolor.length);
-  wizardCoat.style.fill = clothesСolor[getRandomIntInclusive(0, clothesСolor.length)];
-  setup.querySelector('[name=coat-color]').value = clothesСolor[getColor];
+  var currentColor = getRandomIntInclusive(0, clothesСolor.length);
+  wizardCoat.style.fill = clothesСolor[currentColor];
+  setup.querySelector('[name=coat-color]').value = clothesСolor[currentColor];
 });
 
 wizardEyes.addEventListener('click', function () {
-  var getColor = getRandomIntInclusive(0, colors.length);
-  wizardEyes.style.fill = colors[getRandomIntInclusive(0, colors.length)];
-  setup.querySelector('[name=eyes-color').value = colors[getColor];
+  var currentColor = getRandomIntInclusive(0, colors.length);
+  wizardEyes.style.fill = colors[currentColor];
+  setup.querySelector('[name=eyes-color]').value = colors[currentColor];
 });
 
 fireball.addEventListener('click', function () {
-  var getColor = getRandomIntInclusive(0, fireballColors.length);
-  fireball.style.backgroundColor = fireballColors[getColor];
-  fireball.querySelector('[name=fireball-color]').value = fireballColors[getColor];
+  var currentColor = getRandomIntInclusive(0, fireballColors.length);
+  fireball.style.backgroundColor = fireballColors[currentColor];
+  fireball.querySelector('[name=fireball-color]').value = fireballColors[currentColor];
 });
