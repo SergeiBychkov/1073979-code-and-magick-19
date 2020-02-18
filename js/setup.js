@@ -3,8 +3,6 @@
 (function () {
   var ESC_KEY = 'Escape';
   var ENTER_KEY = 'Enter';
-  var SETUP_X = '80px';
-  var SETUP_Y = '50%';
 
   var setup = document.querySelector('.setup');
   var setupOpen = document.querySelector('.setup-open');
@@ -20,8 +18,7 @@
   var closePopup = function () {
     setup.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
-    setup.style.top = SETUP_X;
-    setup.style.left = SETUP_Y;
+    setup.removeAttribute('style');
   };
 
   var onPopupEscPress = function (evt) {

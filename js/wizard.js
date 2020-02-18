@@ -1,9 +1,6 @@
 'use strict';
 
 (function () {
-  var WIZARDS_COUNTER = 4;
-
-  var wizards = [];
   var setup = document.querySelector('.setup');
   var wizardCoat = setup.querySelector('.wizard-coat');
   var wizardEyes = setup.querySelector('.wizard-eyes');
@@ -14,18 +11,6 @@
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
   };
-
-  var makingWizard = function () {
-    wizards.push({
-      name: window.data.firstNames[getRandomIntInclusive(0, window.data.firstNames.length)] + window.data.lastNames[getRandomIntInclusive(0, window.data.lastNames.length)],
-      coatColor: window.data.clothesСolor[getRandomIntInclusive(0, window.data.clothesСolor.length)],
-      eyesColor: window.data.colors[getRandomIntInclusive(0, window.data.colors.length)]
-    });
-  };
-
-  for (var index = 0; index < WIZARDS_COUNTER; index++) {
-    makingWizard();
-  }
 
   var similarWizardTemplate = document.querySelector('#similar-wizard-template')
     .content
@@ -43,8 +28,8 @@
   };
 
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < WIZARDS_COUNTER; i++) {
-    fragment.appendChild(renderWizard(wizards[i]));
+  for (var i = 0; i < window.data.WIZARDS_COUNTER; i++) {
+    fragment.appendChild(renderWizard(window.data.wizards[i]));
   }
 
   similarListElement.appendChild(fragment);
